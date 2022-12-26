@@ -8,7 +8,7 @@ import { CreateTodoButton } from './CreateTodoButton';
 //import './App.css';
 
 
-const todos = [
+const defeultTodos = [
   { text: 'Cortar cebolla', completed: true },
   { text: 'Tomar el curso de intro a REACT', completed: false },
   { text: 'Llorar con la llorona', completed: false },
@@ -18,12 +18,41 @@ const todos = [
 
 
 function App() {
+  // Estado inicial de nuestros TODOs
+  const [todos, setTodos] = React.useState(defeultTodos);
+  // Defino el estado para toda la aplicaion
+  const [searchValue, setSearchValue] = React.useState('');
+  // Cantidad de TODOs completados
+  const completedTodos = todos.filter(todo => !!todo.completed).length;
+  // Cantidad total de TODOs
+  const totalTodos = todos.length;
+
+  let searchedTodos = [];
+
+  if (searchedTodos.length >= 1) {
+    searchedTodos = todos;
+  } else {
+    searchedTodos = todos.filter(todo => {
+      const todoText = todo.text.toLowerCase();
+      const searchText = searchValue.toLowerCase();
+      return todoText.includes(searchText);
+    });
+  }
+
+
   return (
     <React.Fragment>
-      <TodoCounter />
-      <TodoSearch />
+      <TodoCounter
+        total={totalTodos}
+        completed={completedTodos}
+      />
+      <TodoSearch
+        // Envio las propiedades
+        searchValue={searchValue}
+        setSearchValue={setSearchValue}
+      />
       <TodoList>
-        {todos.map(todo => (
+        {searchedTodos.map(todo => (
           // Para solucionar el Warning: Each children in a list should have a unic "key" prop, tenemos que utilizar key={todo.text}  
           <TodoItem
             key={todo.text}
