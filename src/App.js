@@ -9,7 +9,7 @@ import { CreateTodoButton } from './CreateTodoButton';
 
 
 const todos = [
-  { text: 'Cortar cebolla', completed: false },
+  { text: 'Cortar cebolla', completed: true },
   { text: 'Tomar el curso de intro a REACT', completed: false },
   { text: 'Llorar con la llorona', completed: false },
   { text: 'Lalaala', completed: false },
@@ -25,7 +25,11 @@ function App() {
       <TodoList>
         {todos.map(todo => (
           // Para solucionar el Warning: Each children in a list should have a unic "key" prop, tenemos que utilizar key={todo.text}  
-          <TodoItem key={todo.text} text={todo.text} />
+          <TodoItem
+            key={todo.text}
+            text={todo.text}
+            completed={todo.completed}
+          />
         ))}
 
       </TodoList>
