@@ -8,6 +8,11 @@ import { TodoForm } from '../TodoForm';
 import { CreateTodoButton } from '../CreateTodoButton';
 import { Modal } from '../Modal';
 
+// Skeletons
+import { TodosError } from '../TodosError';
+import { TodosLoading } from '../TodosLoading';
+import { EmptyTodos } from '../EmptyTodos';
+
 function AppUI() {
     // Hook userContext
     const {
@@ -28,11 +33,11 @@ function AppUI() {
 
             <TodoList>
                 {/* Colocacion de distintos estados */}
-                {error && <p>Desesperate hubo un error ......</p>}
+                {error && <TodosError error={error} />}
                 {/* Mostramos un mensaje de cargando, cuando la aplicación está cargando los datos */}
-                {loading && <p>Estamos cargando, no desesperes ......</p>}
+                {loading && <TodosLoading />}
                 {/* Si terminó de cargar y no existen TODOs, se muestra un mensaje para crear el primer TODO */}
-                {(!loading && !searchedTodos.length) && <p>!!Crea tu primer Todo</p>}
+                {(!loading && !searchedTodos.length) && <EmptyTodos />}
 
 
                 {searchedTodos.map(todo => (
